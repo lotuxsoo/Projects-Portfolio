@@ -4,10 +4,6 @@
 
 이 문서는 Spring Boot 프로젝트에서 `.jar` 파일을 생성하고, 이를 Docker 이미지로 만들어 Kubernetes에 배포하는 과정을 설명합니다.
 
-## ✨ 목표 그림
-
-![image](https://github.com/user-attachments/assets/595302bc-faa8-4e30-850d-d31e32ad56f3)
-
 ## 1. Spring Boot .jar 파일 생성
 
 Spring Boot 프로젝트에서 실행 가능한 `.jar` 파일을 만들기 위해서는 Gradle 빌드를 사용합니다.
@@ -154,8 +150,6 @@ kubectl apply -f deployment.yaml
 kubectl apply -f service.yaml
 ```
 
-![image](https://github.com/user-attachments/assets/beb15db3-c02e-427c-855c-1b4d1e733225)
-
 ### 4.2 배포 확인
 
 파드가 정상적으로 실행 중인지 확인합니다.
@@ -170,14 +164,36 @@ kubectl get pods
 kubectl get svc
 ```
 
+![image](https://github.com/user-attachments/assets/c12d75e2-44f1-4484-8c21-30c3713ec7e0)
+
+### 🤔 개념 외우기
+
+#### **Minikube IP**
+
+    - Minikube 클러스터의 외부 접근을 위한 IP 주소
+
+#### **Cluster IP**
+
+    - Kubernetes 클러스터 내에서 서비스 간의 통신을 위한 내부 IP 주소
+
+#### 포트 포워딩 설정
+
+우분투 환경에서 Spring Boot 애플리케이션을 윈도우에서 접근할 수 있도록 **포트 포워딩**을 설정했습니다.<br/>
+spring-app-service의 Cluster IP는 10.105.120.146:80이며, 이를 localhost:80으로 포워딩하여 외부에서 접근할 수 있도록 했습니다.
+![image](https://github.com/user-attachments/assets/61981b68-82b6-4976-be7c-d4c4f830fea1)
+
+#### Spring Boot 애플리케이션 접속 확인
+
+브라우저에서 localhost:80으로 접속하여 Spring Boot 애플리케이션이 정상적으로 작동하는 것을 확인했습니다.
+![image](https://github.com/user-attachments/assets/abd06577-7004-4027-b4b6-5e18741bca64)
+
 Minikube를 사용하는 경우, 다음 명령어로 서비스 URL을 확인할 수 있습니다.
 
 ```bash
 minikube service spring-app-service
 ```
 
-![image](https://github.com/user-attachments/assets/a8432505-1e9a-4fa6-88ef-6a21a9e82505)
-![image](https://github.com/user-attachments/assets/400d7c3a-aff3-4ef5-b3d3-9eb24ec75c4c)
+![image](https://github.com/user-attachments/assets/151cf600-8cdb-48ea-9f2a-25b5df4471ae)
 
 ## 5. 스케일링 및 모니터링
 
@@ -197,6 +213,8 @@ Kubernetes 리소스 상태를 모니터링하려면 다음 명령어를 사용�
 kubectl top pods
 kubectl top nodes
 ```
+
+![image](https://github.com/user-attachments/assets/0513276e-20b4-47c8-93db-8204d2a87ae5)
 
 ## 6. Kubernetes 대시보드 확인
 
