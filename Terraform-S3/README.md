@@ -117,18 +117,18 @@ S3 버킷에 `main.html` 파일을 추가로 업로드합니다.
 ```
 .
 ├── iam_policy.tf             # IAM 역할 생성, 정책 정의, 역할 연결
-├── create_bucket.tf        # 🪣 S3 버킷 생성
-├── upload_new_index.tf     # 📄 새로운 index.html 파일 업로드
-├── upload_modified_index.tf# 📄 다른 버전의 index.html 업로드
+├── create_bucket.tf          # 🪣 S3 버킷 생성
+├── upload_new_index.tf       # 새로운 index.html 파일 업로드
+├── upload_modified_index.tf  # 다른 버전의 index.html 업로드
 ├── index.html                # 기본 index.html 파일
 ├── main.html                 # 추가로 업로드할 main.html 파일
-├── README.md                 # 📘 프로젝트 설명서
+
 ```
 
 ## 📝 사용법 정리
 
 1. **Terraform 초기화**:
-   프로젝트 디렉토리에서 Terraform을 초기화합니다. <br> 처음 프로젝트 디렉토리를 설정할 때 필요하며, 새로운 프로바이더나 모듈을 추가하거나 기존 프로바이더의 버전이 업데이트된 경우에 다시 실행해야 합니다.
+   Terraform은 프로젝트 디렉토리를 처음 설정하거나, 프로바이더나 모듈이 추가되거나 업데이트될 때 다시 초기화를 수행합니다.
 
    ```bash
    terraform init
@@ -149,15 +149,12 @@ S3 버킷에 `main.html` 파일을 추가로 업로드합니다.
    terraform plan에서 보여주었던 변경 사항을 실행하고, 리소스를 프로비저닝합니다. <br> `-auto-approve` 옵션을 추가하면 변경 사항에 대해 수동으로 승인할 필요 없이 자동으로 적용됩니다.
    <br>
 
-   ### 💡 참고
-
-   `terraform apply` 명령어는 현재 프로젝트 디렉토리 내의 모든 .tf 파일을 사용하여 정의된 리소스를 전체적으로 적용합니다. <br>
-   `terraform apply -target=리소스명` 옵션을 사용하면 특정 리소스만 선택적으로 적용할 수 있습니다. <br>
+   💡 `terraform apply` 명령어는 현재 프로젝트 디렉토리 내의 모든 .tf 파일을 사용하여 정의된 리소스를 전체적으로 적용합니다. <br>
+   특정 리소스만 선택적으로 적용하려면 `terraform apply -target=<resource>` 옵션을 사용합니다.
 
 ## 리소스의 범위와 예시
 
-리소스의 범위는 각 클라우드 서비스가 제공하는 구성 요소 단위입니다. <br>
-Terraform에서는 리소스를 다음과 같이 정의합니다. <br>
+리소스의 범위는 각 클라우드 서비스가 제공하는 구성 요소 단위입니다. Terraform에서는 리소스를 다음과 같이 정의합니다. <br>
 
 ```hcl
 resource "<provider>_<resource_type>" "<name>" {
@@ -173,14 +170,14 @@ resource "aws_s3_bucket" "bucket1" {
 }
 ```
 
-aws_s3_bucket: AWS S3 버킷 리소스를 의미합니다. <br>
-bucket1: 해당 리소스의 이름입니다. <br>
-속성들: S3 버킷의 이름, 버전 관리 여부, 접근 제어 등을 설정할 수 있습니다. <br>
+`aws_s3_bucket`: AWS S3 버킷 리소스를 의미합니다. <br>
+`bucket1`: 해당 리소스의 이름입니다. <br>
+`속성들`: S3 버킷의 이름, 버전 관리 여부, 접근 제어 등을 설정할 수 있습니다. <br>
 
 ## 리소스 간 상호작용 및 주의사항
 
-리소스들은 서로 의존성을 가질 수 있습니다. S3 버킷을 생성한 뒤 해당 버킷에 파일을 업로드하려면, 버킷이 먼저 생성되어 있어야 합니다. <br>
-aws_s3_object는 aws_s3_bucket 리소스에 의존하고 있습니다. 버킷이 생성되기 전에 파일을 업로드할 수 없기 때문입니다.
+리소스들은 서로 의존성을 가질 수 있습니다. 예를 들어, S3 버킷을 생성한 뒤 해당 버킷에 파일을 업로드하려면, 버킷이 먼저 생성되어 있어야 합니다. <br>
+**Terraform은 각 리소스 간의 의존성을 자동으로 감지하고 순서를 조정**하지만, 명시적으로 `depends_on` 속성을 사용하여 순서를 지정할 수도 있습니다.
 
 ```hcl
 resource "aws_s3_bucket" "bucket1" {
@@ -194,4 +191,6 @@ resource "aws_s3_object" "index_html" {
 }
 ```
 
-**Terraform은 각 리소스 간의 의존성을 자동으로 감지하고 순서를 조정**하지만, `depends_on` 속성을 사용하여 명시적으로 순서를 지정할 수 있습니다.
+위 예시에서 aws_s3_object는 aws_s3_bucket 리소스에 의존하고 있으며, 버킷이 생성되기 전에 파일을 업로드할 수 없습니다.
+
+Terraform을 사용할 때는 리소스 간의 상호작용을 고려하여 의존성을 명확하게 정의하고 관리하는 것이 중요합니다.
