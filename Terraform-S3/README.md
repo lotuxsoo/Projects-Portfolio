@@ -76,7 +76,7 @@ resource "aws_iam_role_policy_attachment" "attach_s3_policy" {
 }
 ```
 
-## 1. S3 버킷 생성 (`create_bucket.tf`)
+## 1. S3 버킷 생성
 
 - **목적**: AWS S3 버킷을 생성합니다.
 - **사용 방법**:
@@ -85,7 +85,7 @@ resource "aws_iam_role_policy_attachment" "attach_s3_policy" {
   terraform apply -target=aws_s3_bucket.bucket1
   ```
 
-## 2. 새로운 `index.html` 파일 업로드 (`upload_new_index.tf`)
+## 2. 새로운 `index.html` 파일 업로드
 
 생성된 S3 버킷에 새로운 `index.html` 파일을 업로드합니다.
 
@@ -94,7 +94,7 @@ resource "aws_iam_role_policy_attachment" "attach_s3_policy" {
   terraform apply -target=aws_s3_object.index_html
   ```
 
-## 3. 다른 버전의 `index.html` 파일 업로드 (`upload_modified_index.tf`)
+## 3. 다른 버전의 `index.html` 파일 업로드
 
 기존의 `index.html` 파일을 업데이트합니다.
 
@@ -103,7 +103,7 @@ resource "aws_iam_role_policy_attachment" "attach_s3_policy" {
   terraform apply -target=aws_s3_object.index_html_v2
   ```
 
-## 4. `main.html` 파일 업로드 (`main.html` 업로드)
+## 4. `main.html` 파일 업로드
 
 S3 버킷에 `main.html` 파일을 추가로 업로드합니다.
 
