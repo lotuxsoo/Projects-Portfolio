@@ -24,57 +24,23 @@ $ sudo su -
 # terraform -version
 ```
 
+## 📁 파일 구조
+
+```
+.
+├── iam_policy.tf             # IAM 역할 생성, 정책 정의, 역할 연결
+├── create_bucket.tf          # 🪣 S3 버킷 생성
+├── upload_new_index.tf       # 새로운 index.html 파일 업로드
+├── upload_modified_index.tf  # 다른 버전의 index.html 업로드
+├── index.html                # 기본 index.html 파일
+├── main.html                 # 추가로 업로드할 main.html 파일
+
+```
+
 ## IAM 유저에 S3 사용 권한 부여
 
 S3 버킷을 생성할 수 있는 IAM 역할을 만듭니다.<br>
-S3에 대한 모든 권한을 부여하는 정책을 정의하고 IAM 역할에 연결합니다.
-
-```hcl
-# IAM 역할 생성
-resource "aws_iam_role" "s3_create_bucket_role" {
-  name = "s3-create-bucket-role"
-
-  assume_role_policy = jsonencode({
-    "Version": "2012-10-17",
-    "Statement": [
-      {
-        "Action": "sts:AssumeRole",
-        "Effect": "Allow",
-        "Principal": {
-          "Service": "ec2.amazonaws.com"
-        }
-      }
-    ]
-  })
-}
-
-# IAM 정책 정의 (S3에 대한 모든 권한 부여)
-resource "aws_iam_policy" "s3_full_access_policy" {
-  name        = "s3-full-access-policy"
-  description = "Full access to S3 resources"
-
-  policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = [
-      {
-        Effect = "Allow"
-        Action = [
-          "s3:*"  # 모든 S3 액세스 허용
-        ]
-        Resource = [
-          "*"  # 모든 S3 리소스에 대한 권한
-        ]
-      }
-    ]
-  })
-}
-
-# IAM 역할에 정책 연결
-resource "aws_iam_role_policy_attachment" "attach_s3_policy" {
-  role       = aws_iam_role.s3_create_bucket_role.name
-  policy_arn = aws_iam_policy.s3_full_access_policy.arn
-}
-```
+S3에 대한 모든 권한을 부여하는 정책(`s3-full-access-policy`)을 정의하고 IAM 역할에 연결합니다.
 
 ## 1. S3 버킷 생성
 
@@ -111,19 +77,6 @@ S3 버킷에 `main.html` 파일을 추가로 업로드합니다.
   ```bash
   terraform apply -target=aws_s3_object.main
   ```
-
-## 📁 파일 구조
-
-```
-.
-├── iam_policy.tf             # IAM 역할 생성, 정책 정의, 역할 연결
-├── create_bucket.tf          # 🪣 S3 버킷 생성
-├── upload_new_index.tf       # 새로운 index.html 파일 업로드
-├── upload_modified_index.tf  # 다른 버전의 index.html 업로드
-├── index.html                # 기본 index.html 파일
-├── main.html                 # 추가로 업로드할 main.html 파일
-
-```
 
 ## 📝 사용법 정리
 
