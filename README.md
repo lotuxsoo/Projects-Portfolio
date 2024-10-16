@@ -17,11 +17,10 @@ _최종 업데이트: 2024년 10월 17일_
 | 3   | **PAM 비밀번호 정책 규제**      | Linux 환경에서 보안 강화를 위한 실습                                 | PAM, Linux, VirtualBox                                       | 개인<br> 프로젝트     | [GitHub 링크](https://github.com/lotuxsoo/Woori-FISA/tree/main/Linux-PAM)      | 2024-09-19 |
 | 4   | **TIL 자동화 프로젝트**         | Crontab을 이용한 TIL 자동화 관리 시스템                              | Crontab, Linux, Bash Script                                  | 개인<br> 프로젝트     | [GitHub 링크](https://github.com/lotuxsoo/Woori-FISA/tree/main/Crontab-TIL)    | 2024-09-23 |
 | 5   | **Docker 이미지 방법론**        | Java 애플리케이션에서 Docker 이미지 빌드, 실행, 최적화 방법론        | Docker, Linux, Bash Script                                   | 개인<br> 프로젝트     | [GitHub 링크](https://github.com/lotuxsoo/Woori-FISA/tree/main/Docker-Guide)   | 2024-09-24 |
-| 6   | **Trivy를 활용한 보안 테스트**  | Trivy를 통한 보안 취약점 탐지와 결과 분석 실습                       | Docker, Trivy, Linux, Bash Script                            | 팀<br> 프로젝트 (4명) | [GitHub 링크](https://github.com/lotuxsoo/Woori-FISA/tree/main/Trivy-Analysis) | 2024-09-25 |
+| 6   | **Trivy를 활용한 보안 테스트**  | Trivy를 사용한 도커 이미지 보안 취약점 탐지 실습                     | Docker, Trivy, Linux, Bash Script                            | 팀<br> 프로젝트 (4명) | [GitHub 링크](https://github.com/lotuxsoo/Woori-FISA/tree/main/Trivy-Analysis) | 2024-09-25 |
 | 6   | **Kubernetes 배포 실습**        | Kubernetes에서 Spring Boot 도커 이미지를 다중 인스턴스 환경으로 배포 | Kubernetes, Docker, Linux, Spring Boot                       | 개인<br> 프로젝트     | [GitHub 링크](https://github.com/lotuxsoo/Woori-FISA/tree/main/K8S-Deployment) | 2024-10-02 |
 | 7   | **Terraform을 사용한 IaC 실습** | Terraform을 사용한 AWS S3 정적 파일 호스팅 및 IaC 실습               | Terraform, IaC, AWS S3                                       | 개인<br> 프로젝트     | [GitHub 링크](https://github.com/lotuxsoo/Woori-FISA/tree/main/Terraform-S3)   | 2024-10-17 |
 
 ---
 
-<br>
 이 포트폴리오는 지속적으로 업데이트됩니다.
