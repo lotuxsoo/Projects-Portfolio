@@ -21,3 +21,5 @@
 | 8   | **MSA-SpringBoot 구축 프로젝트**   | 2차 기술 세미나 주제                                                 | MSA, SpringBoot, K8S                                         | [GitHub 링크](https://github.com/lotuxsoo/msa-springboot-k8s)                  | 2024-10-22 |
 
 ---
+
+<br>
